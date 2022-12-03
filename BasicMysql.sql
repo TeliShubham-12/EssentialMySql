@@ -111,4 +111,150 @@ Use the ASC option to sort the result set in ascending order and the DESC option
 The ORDER BY clause is evaluated after the FROM and SELECT clauses.
 In MySQL, NULL is lower than non-NULL values*/
  
+ /*whare
+
+1) Using MySQL WHERE clause with equality operator
+query uses the WHERE clause to find all employees whose job titles are Sales Rep.*/
+
+ use classicmodels;
+ SELECT * FROM employees;
+ SELECT 
+    lastname, 
+    firstname, 
+    jobtitle
+FROM
+    employees
+WHERE
+    jobtitle = 'Sales Rep';
  
+/* 2) Using MySQL WHERE clause with the AND operator*/
+ 
+ SELECT 
+    lastname, 
+    firstname, 
+    jobtitle,
+    officeCode
+FROM
+    employees
+WHERE
+    jobtitle = 'President' AND        /*The AND operator evaluates to TRUE only if both expressions evaluate to TRUE. Therefore,
+                                            the query returns rows whose values in the jobTitle column is Sales Rep and officeCode is 1*/
+	officeCode = 1;
+ 
+ /*3) Using MySQL WHERE clause with OR operator*/
+ 
+ SELECT 
+    lastName, 
+    firstName, 
+    jobTitle, 
+    officeCode
+FROM
+    employees
+WHERE
+   officeCode = 2 OR 
+    jobtitle = 'Sales Rep'
+ORDER BY 
+    officeCode , 
+    jobTitle;
+    /*The OR operator evaluates to TRUE only if one of the expressions evaluates to TRUE:*/
+ /* the query returns any employee who has the job title Sales Rep or office code 1*/
+ 
+ 
+/* 4) Using MySQL WHERE clause with the BETWEEN operator example
+ The BETWEEN operator returns TRUE if a value is in a range of values*/
+ 
+ SELECT 
+    firstName, 
+    lastName, 
+    officeCode
+FROM
+    employees
+WHERE
+    officeCode BETWEEN 3 AND 7
+ORDER BY officeCode;
+
+/*5) Using MySQL WHERE clause with the LIKE operator example*/
+
+SELECT 
+    firstName, 
+    lastName
+FROM
+    employees
+WHERE                       /*The following query finds the employees whose last names start with the string 'Tho':*/
+    lastName LIKE 'Tho%'
+ORDER BY firstName;
+
+SELECT 
+    firstName, 
+    lastName
+FROM
+    employees
+WHERE                       /*The following query finds the employees whose last names end with the string 'son':*/
+    lastName LIKE '%son'
+ORDER BY firstName;
+
+/*6) Using MySQL WHERE clause with the IN operator example
+The IN operator returns TRUE if a value matches any value in a list 
+ WHERE clause with the IN operator to find employees who locate in the office with office code 1.*/
+SELECT 
+    firstName, 
+    lastName, 
+    officeCode
+FROM
+    employees
+WHERE
+    officeCode IN (  2, 3,4)
+ORDER BY 
+    officeCode;
+
+/*7) Using MySQL WHERE clause with the IS NULL operator*/
+
+SELECT 
+    lastName, 
+    firstName, 
+    reportsTo
+FROM
+    employees
+WHERE
+    reportsTo IS NULL;
+    
+   /* In the database world, NULL is a marker that indicates that a value is missing or unknown. And NULL is not equivalent to the number 0 or an empty string*/
+
+  /*8) Using MySQL WHERE clause with comparison operators */
+
+SELECT 
+    lastname, 
+    firstname, 
+    jobtitle          /*The query uses the not equal to (<>) operator to find all employees who are not the Sales Rep*/
+FROM
+    employees
+WHERE
+    jobtitle <> 'Sales Rep';
+    
+/* The following query finds employees whose office code is greater than 5*/
+    
+    SELECT 
+    lastname, 
+    firstname, 
+    officeCode
+FROM
+    employees
+WHERE 
+    officecode > 5;
+    
+    
+    /*The query returns employees with office code less than or equal to 4 (<=4):*/
+
+SELECT 
+    lastname, 
+    firstname, 
+    officeCode
+FROM
+    employees
+WHERE 
+    officecode <= 4;
+    
+    
+    
+   /* Use the WHERE clause to filter rows by a condition.
+MySQL evaluates the WHERE clause after the FROM clause and before the SELECT and ORDER BY clauses.*/
