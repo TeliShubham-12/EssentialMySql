@@ -258,3 +258,74 @@ WHERE
     
    /* Use the WHERE clause to filter rows by a condition.
 MySQL evaluates the WHERE clause after the FROM clause and before the SELECT and ORDER BY clauses.*/
+
+/*When querying data from a table, you may get duplicate rows. To remove these duplicate rows, you use the DISTINCT clause in the SELECT statement*/
+use classicmodels;
+SELECT 
+    lastname
+FROM
+    employees
+ORDER BY 
+    lastname;
+    
+    /*DISTINCT clause removes the duplicate last names from the result set.*/
+    SELECT 
+    DISTINCT lastname
+FROM
+    employees
+ORDER BY 
+    lastname;
+    
+   /* MySQL DISTINCT and NULL values*/
+    
+/*When you specify a column that has NULL values in the DISTINCT clause,
+ the DISTINCT clause will keep only one NULL value because it considers all NULL values are the same*/
+ 
+ SELECT DISTINCT state
+FROM customers;
+
+ SELECT DISTINCT state
+FROM customers
+order by state DESC;
+ 
+/*MySQL DISTINCT with multiple columns*/ 
+ 
+ SELECT DISTINCT
+    state, city
+FROM
+    customers
+WHERE
+    state IS NOT NULL
+ORDER BY 
+    state, 
+    city;
+/* Use the MySQL DISTINCT clause to remove duplicate rows from the result set returned by the SELECT clause*/
+
+/*Introduction to MySQL AND operator*/
+
+/*The AND operator is a logical operator that combines two or more Boolean expressions and returns 1, 0, or NULL:
+The logical AND operator returns 1 if both A and B are non-zero and not NULL.
+ It returns 0 if either operand is zero; otherwise, it returns NULL*/
+ 
+SELECT 1 AND 0; 
+SELECT 1 AND 0, 0 AND 1, 0 AND 0, 0 AND NULL;
+
+/*In practice, you’ll use the AND operator in the WHERE clause of the SELECT, UPDATE, DELETE statements to form a condition.
+ Also, you can the AND operator in the conditions of the INNER JOIN and LEFT JOIN clauses.*/
+ 
+ SELECT 1 = 0 AND 1 / 0 ;
+ 
+/* MySQL AND operator*/
+SELECT 
+    customername, 
+    country, 
+    state
+FROM
+    customers
+WHERE
+    country = 'USA' AND 
+    state = 'CA';
+
+/*Use the AND operator to combine two Boolean expressions. The AND operator returns true when both expressions are true; otherwise, it returns false.
+Use the AND operator to form conditions in the WHERE clause of the SELECT statement.*/
+
