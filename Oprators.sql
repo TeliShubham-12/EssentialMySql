@@ -249,3 +249,154 @@ The % wildcard matches zero or more characters.
 The _ wildcard matches a single character.
 Use ESCAPE clause specifies an escape character other than the default escape character (\).
 Use the NOT operator to negate the LIKE operator.*/
+
+ /*MySQL LIMIT clause*/
+ use classicmodels;
+SELECT 
+    customerNumber, 
+    customerName, 
+    creditLimit
+FROM
+    customers
+ORDER BY creditLimit DESC
+LIMIT 5;
+
+
+/*First, the ORDER BY clause sorts the customers by credits in high to low.
+Then, the LIMIT clause returns the first 5 rows.*/
+
+SELECT 
+    customerNumber, 
+    customerName, 
+    creditLimit
+FROM
+    customers
+ORDER BY creditLimit
+LIMIT 5;
+/*First, the ORDER BY clause sorts the customers by credits in low to high.
+Then, the LIMIT clause returns the first 5 rows.*/
+
+SELECT 
+    customerNumber, 
+    customerName, 
+    creditLimit
+FROM
+    customers
+ORDER BY 
+    creditLimit, 
+    customerNumber
+LIMIT 5;
+
+/*MySQL LIMIT clause for pagination*/
+
+SELECT 
+    COUNT(*) 
+FROM                   /* Total no of rows count*/
+    customers;
+    
+    SELECT 
+    customerNumber, 
+    customerName
+FROM
+    customers
+ORDER BY customerName    
+LIMIT 10;
+
+/*This query uses the LIMIT clause to get the rows of the second page that include rows 11 – 20*/
+
+SELECT 
+    customerNumber, 
+    customerName
+FROM
+    customers
+ORDER BY customerName    
+LIMIT 10, 10;
+
+/*MySQL LIMIT to get the nth highest or lowest value*/
+
+SELECT 
+    customerName, 
+    creditLimit
+FROM
+    customers
+ORDER BY 
+    creditLimit DESC    
+LIMIT 1,1;
+
+/*Let’s double-check the result. This query returns all customers sorted by credits from high to low:*/
+
+SELECT 
+    customerName, 
+    creditLimit
+FROM
+    customers
+ORDER BY 
+    creditLimit DESC;
+    
+   /* MySQL LIMIT & DISTINCT clauses*/
+   SELECT DISTINCT
+    state
+FROM
+    customers
+WHERE
+    state IS NOT NULL
+LIMIT 5;
+
+/*Use the MySQL LIMIT clause to constrain the number of rows returned by the SELECT statement*/
+
+/*Introduction to MySQL IS NULL operator*/
+
+SELECT 
+    customerName, 
+    country, 
+    salesrepemployeenumber
+FROM
+    customers
+WHERE
+    salesrepemployeenumber IS NULL
+ORDER BY 
+    customerName;
+    
+    SELECT 
+    customerName, 
+    country, 
+    salesrepemployeenumber
+FROM
+    customers
+WHERE
+    salesrepemployeenumber IS NOT NULL
+ORDER BY 
+   customerName;
+   
+  /* MySQL IS NULL – specialized features*/
+  
+CREATE TABLE IF NOT EXISTS projects (
+    id INT AUTO_INCREMENT,
+    title VARCHAR(255),
+    begin_date DATE NOT NULL,
+    complete_date DATE NOT NULL,
+    PRIMARY KEY(id)
+);
+
+INSERT INTO projects(title,begin_date, complete_date)
+VALUES('New CRM','2020-01-01','0000-00-00'),
+      ('ERP Future','2020-01-01','0000-00-00'),
+      ('VR','2020-01-01','2030-01-01');
+      
+      SELECT * 
+FROM projects
+WHERE complete_date IS NULL;
+      
+INSERT INTO projects(title,begin_date, complete_date)
+VALUES('MRP III','2010-01-01','2020-12-31');      
+      
+      SELECT 
+    id
+FROM
+    projects
+WHERE
+    id IS NULL;
+    
+    
+   /* Use the IS NULL operator to test if a value is NULL or not. The IS NULL operator returns one if a value is NULL.
+The IS NOT NULL returns one if a value is not NULL
